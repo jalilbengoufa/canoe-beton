@@ -3,47 +3,47 @@ $color_shakespeare_approx: #67b0d1;
 $white: #fff;
 
 a {
-	color: $color_shakespeare_approx;
+    color: $color_shakespeare_approx;
 }
 .top-nav-collapse {
-	background: $color_shakespeare_approx;
+    background: $color_shakespeare_approx;
 }
 .bg-skin {
-	background: $color_shakespeare_approx;
+    background: $color_shakespeare_approx;
 }
 footer {
-	background-color: $color_shakespeare_approx;
+    background-color: $color_shakespeare_approx;
 }
 .btn-skin {
-	color: $white;
-	background-color: $color_shakespeare_approx;
-	border-color: $color_shakespeare_approx;
+    color: $white;
+    background-color: $color_shakespeare_approx;
+    border-color: $color_shakespeare_approx;
 }
 .tp-caption a.btn:hover {
-	color: $color_shakespeare_approx;
+    color: $color_shakespeare_approx;
 }
 .navbar-custom ul.nav ul.dropdown-menu li a:hover {
-	color: $color_shakespeare_approx;
+    color: $color_shakespeare_approx;
 }
 .owl-theme .owl-controls {
-	.owl-page.active span {
-		background-color: $color_shakespeare_approx;
-	}
-	&.clickable .owl-page:hover span {
-		background-color: $color_shakespeare_approx;
-	}
+    .owl-page.active span {
+        background-color: $color_shakespeare_approx;
+    }
+    &.clickable .owl-page:hover span {
+        background-color: $color_shakespeare_approx;
+    }
 }
 .widget-avatar .avatar:hover {
-	border: 5px solid $color_shakespeare_approx;
+    border: 5px solid $color_shakespeare_approx;
 }
 form#contact-form {
-	input:focus {
-		border-color: $color_shakespeare_approx;
-	}
-	select:focus {
-		border-color: $color_shakespeare_approx;
-	}
-	textarea:focus {
-		border-color: $color_shakespeare_approx;
-	}
+    input:focus {
+        border-color: $color_shakespeare_approx;
+    }
+    select:focus {
+        border-color: $color_shakespeare_approx;
+    }
+    textarea:focus {
+        border-color: $color_shakespeare_approx;
+    }
 }
