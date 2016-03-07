@@ -1,3 +1,4 @@
+process.env.NODE_ENV = 'test';
 var server = require('./server');
 var request = require('supertest').agent(server.listen());
 
@@ -17,7 +18,7 @@ var config = {
   port: 1025,
   secure: false,
   auth: {
-    user: '',
+    user: 'test',
     pass: ""
   }
 };
@@ -137,7 +138,8 @@ describe('Configuration', function() {
   describe('test env', function() {
     it('should exist', function() {
       config = require('./config/config');
-      assert.ok(config);
+      assert.equal('test', process.env.NODE_ENV);
+      assert.equal('test', config.auth.user);
     });
   });
 });
