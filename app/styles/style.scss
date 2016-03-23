@@ -822,6 +822,9 @@ Parallax
     .widget-contact h5 {
         display: none;
     }
+    .intro {
+        height: 100%;
+    }
 
 }
 @media (max-width:320px) {
@@ -835,5 +838,8 @@ Parallax
     .home-section {
         padding-top: 25px;
         padding-bottom: 25px;
+    }
+    .slogan h4 {
+        margin-bottom: 5px;
     }
 }
