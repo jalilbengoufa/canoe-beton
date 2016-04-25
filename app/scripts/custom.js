@@ -35,4 +35,6 @@
         });
     });
 
+    $('img.lazy').lazyload();
+
 })(jQuery);
