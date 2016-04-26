@@ -35,6 +35,4 @@
         });
     });
 
-    $('img.lazy').lazyload();
-
 })(jQuery);
