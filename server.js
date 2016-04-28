@@ -15,14 +15,17 @@ app.post('/api/comments', function(req, res, next) {
   var mailOptions = {
     from: data.email,
     to: "canoebetonets@gmail.com",
-    subject: "New comments from " + data.name,
+    subject: "Nouveaux commentaires de " + data.name + "(" + data.email + ")",
     text: data.message
   };
   var transporter = nodemailer.createTransport(config);
+  console.log("Trying to send mail...");
   transporter.sendMail(mailOptions, function(err, result) {
     if (err) {
+      console.log(err);
       res.redirect('/');
     } else {
+      console.log(result);
       res.redirect('/');
     }
     next();
@@ -30,3 +33,4 @@ app.post('/api/comments', function(req, res, next) {
 });
 
 app.listen(3000);
+console.log("Running on port 3000");
