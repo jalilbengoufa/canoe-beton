@@ -834,7 +834,10 @@ Parallax
     .intro {
         height: 100%;
     }
-
+    .team p.long-subtitle {
+        margin-bottom: 10px;
+        font-size: 10px;
+    }
 }
 @media (max-width:320px) {
     .section-heading h2 {
