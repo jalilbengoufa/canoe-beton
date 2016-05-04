@@ -26,7 +26,7 @@ var config = {
 var mailOptions = {
   from: 'test@test.com',
   to: "canoebetonets@gmail.com",
-  subject: "New comments from test",
+  subject: "Nouveaux commentaires de test(test@test.com)",
   text: "test",
 };
 
