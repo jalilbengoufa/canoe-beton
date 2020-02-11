@@ -26,6 +26,7 @@ commands:
         description: A namespace
         type: string
     steps:
+      - kube-orb/install-kubectl
       - kube-orb/install-kubeconfig:
           kubeconfig: KUBECONFIG_DATA
       - run: |
@@ -61,8 +62,6 @@ jobs:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
-      # Install `gcloud` and `kubectl` if not already installed.
-      - gcp-gke/install
       # Update a deployment's Docker image.
       - rollout-image:
           deployment: canoe
@@ -76,10 +75,7 @@ jobs:
 workflows:
   build_update_deploy:
     jobs:
-      - build
-      - Build-Push-Image-Docker:
-          requires:
-            - build
+      - Build-Push-Image-Docker
       - deploy:
           requires:
             - Build-Push-Image-Docker
