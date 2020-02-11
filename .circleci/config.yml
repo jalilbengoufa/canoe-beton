@@ -4,7 +4,7 @@ orbs:
   node: circleci/node@1.1.6
   gcp-gke: circleci/gcp-gke@0.1.0
   gcr: circleci/gcp-gcr@0.0.2
-  kube-orb: circleci/kubernetes@1.0.0
+  kube-orb: circleci/kubernetes@0.11.0
 
 commands:
   rollout-image:
