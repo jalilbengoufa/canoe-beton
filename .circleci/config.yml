@@ -4,7 +4,33 @@ orbs:
   node: circleci/node@1.1.6
   gcp-gke: circleci/gcp-gke@0.1.0
   gcr: circleci/gcp-gcr@0.0.2
+  kube-orb: circleci/kubernetes@1.0.0
 
+commands:
+  rollout-image:
+    description: "Update a deployment's Docker image."
+    parameters:
+      cluster:
+        description: "The Kubernetes cluster name."
+        type: string
+      deployment:
+        description: "The Kubernetes deployment name."
+        type: string
+      container:
+        description: "The Kubernetes container name."
+        type: string
+      image:
+        description: A name for your docker image
+        type: string
+      namespace:
+        description: A namespace
+        type: string
+    steps:
+      - kube-orb/install-kubeconfig:
+          kubeconfig: $KUBECONFIG_DATA
+      - run: |
+          kubectl
+          kubectl set image deployment <<parameters.deployment>> -n <<parameters.namespace>> <<parameters.container>>=<<parameters.image>>
 
 jobs:
   build:
@@ -15,10 +41,49 @@ jobs:
 
       - setup_remote_docker
 
-
-      # build and push Docker image
       - run: |
-          TAG=test
+          TAG=latest
           docker build -t us.gcr.io/sre-cedille/canoe-beton:$TAG .
-          echo $DOCKER_PASS | docker login -u _json_key --password-stdin https://us.gcr.io
+          cat $DOCKER_PASS | docker login -u _json_key --password-stdin https://us.gcr.io
           docker push us.gcr.io/sre-cedille/canoe-beton:$TAG
+Build-Push-Image-Docker:
+    description: Build and push image to Google Container Registry
+    machine: true
+    steps:
+      - checkout
+      - gcr/gcr-auth
+      - gcr/build-image:
+          image: canoe-beton
+          tag: "latest"
+      - gcr/push-image:
+          image: canoe-beton
+          tag: "latest"
+    
+  deploy:
+    description: Deploy application to Google Kubernetes Engine
+    machine: true
+    steps:
+      # Install `gcloud` and `kubectl` if not already installed.
+      - gcp-gke/install
+      # Initialize the `gcloud` CLI.
+      - gcp-gke/init
+      # Update a deployment's Docker image.
+      - rollout-image:
+          deployment: canoe
+          image: us.gcr.io/sre-cedille/canoe-beton:latest
+          container: canoe-beton
+          cluster: sre-cedille
+          namespace: canoe
+
+      
+
+workflows:
+  build_update_deploy:
+    jobs:
+      - build
+      - Build-Push-Image-Docker:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - Build-Push-Image-Docker
