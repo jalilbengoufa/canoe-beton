@@ -46,7 +46,7 @@ jobs:
           docker build -t us.gcr.io/sre-cedille/canoe-beton:$TAG .
           cat $DOCKER_PASS | docker login -u _json_key --password-stdin https://us.gcr.io
           docker push us.gcr.io/sre-cedille/canoe-beton:$TAG
-Build-Push-Image-Docker:
+  Build-Push-Image-Docker:
     description: Build and push image to Google Container Registry
     machine: true
     steps:
