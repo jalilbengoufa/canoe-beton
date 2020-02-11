@@ -63,8 +63,6 @@ jobs:
     steps:
       # Install `gcloud` and `kubectl` if not already installed.
       - gcp-gke/install
-      # Initialize the `gcloud` CLI.
-      - gcp-gke/init
       # Update a deployment's Docker image.
       - rollout-image:
           deployment: canoe
