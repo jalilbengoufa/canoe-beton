@@ -1,6 +1,8 @@
 version: 2.1
 
 orbs:
+  node: circleci/node@1.1.6
+  gcp-gke: circleci/gcp-gke@0.1.0
   gcr: circleci/gcp-gcr@0.0.2
   kube-orb: circleci/kubernetes@0.11.0
 
@@ -60,6 +62,8 @@ jobs:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
+      # Install `gcloud` and `kubectl` if not already installed.
+      - gcp-gke/install
       # Update a deployment's Docker image.
       - rollout-image:
           deployment: canoe
@@ -73,7 +77,4 @@ jobs:
 workflows:
   build_update_deploy:
     jobs:
-      - Build-Push-Image-Docker
-      - deploy:
-          requires:
-            - Build-Push-Image-Docker
+      - deploy
