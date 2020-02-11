@@ -1,0 +1,24 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@1.1.6
+  gcp-gke: circleci/gcp-gke@0.1.0
+  gcr: circleci/gcp-gcr@0.0.2
+
+
+jobs:
+  build:
+    docker:
+      - image: circleci/node:7.10
+    steps:
+      - checkout
+
+      - setup_remote_docker:
+          docker_layer_caching: true
+
+      # build and push Docker image
+      - run: |
+          TAG=test
+          docker build -t us.gcr.io/sre-cedille/canoe-beton:$TAG .
+          echo $DOCKER_PASS | docker login -u _json_key --password-stdin https://us.gcr.io
+          docker push us.gcr.io/sre-cedille/canoe-beton:$TAG
