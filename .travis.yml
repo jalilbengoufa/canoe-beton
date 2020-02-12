@@ -9,7 +9,7 @@ services:
 
 before_install:
 
-  - echo "{$DOCKER_PASSWORD}" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - echo "{$DOCKER_PASSWORD}" | docker login -u "$DOCKER_USERNAME" --password-stdin https://us.gcr.io
   - docker push us.gcr.io/sre-cedille/canoe-beton:$TAG
 
 script:
