@@ -24,7 +24,7 @@ before_install:
 # This line is critical. We setup the SDK to take precedence in our
 # environment over the old SDK that is already on the machine.
 - ls -a
-- cd /home/travis/build/jalilbengoufa/canoe-beton && openssl aes-256-cbc -K 0 -iv 1 -in configt.enc -out configt -d
+- cd /home/travis/build/jalilbengoufa/canoe-beton && openssl aes-256-cbc -K $encrypted_7230627466ee_key -iv $encrypted_7230627466ee_iv -in configt.enc -out configt -d
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components update kubectl
 - gcloud version
