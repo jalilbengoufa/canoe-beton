@@ -29,7 +29,7 @@ before_install:
 - echo "${KUBETEST}" >> /home/travis/config && cat /home/travis/config
 - cd /home && ls -a
 - kubectl config view
-- kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton:latest --kubeconfig "${KUBETEST}" 
+- kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton:latest --kubeconfig ${KUBETEST} 
 # Insert your own install + script below.
 install: true
 script: true
