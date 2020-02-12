@@ -27,7 +27,6 @@ commands:
         type: string
     steps:
       # Install  `kubectl` if not already installed and set the config 
-      - kube-orb/install-kubectl
       - kube-orb/install-kubeconfig:
           kubeconfig: KUBECONFIG_DATA
       - run: |
