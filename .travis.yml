@@ -27,7 +27,7 @@ before_install:
 - gcloud components update kubectl
 - gcloud version
 - kubectl config view
-- kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton:latest
+- kubectl rollout restart deployment canoe -n canoe
   --kubeconfig /home/travis/build/jalilbengoufa/canoe-beton/secrets/configt
 install: true
 script: true
