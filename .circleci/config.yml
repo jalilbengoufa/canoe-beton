@@ -26,6 +26,7 @@ commands:
         description: A namespace
         type: string
     steps:
+      # Install  `kubectl` if not already installed and set the config 
       - kube-orb/install-kubectl
       - kube-orb/install-kubeconfig:
           kubeconfig: KUBECONFIG_DATA
@@ -45,26 +46,14 @@ jobs:
       - run: |
           TAG=latest
           docker build -t us.gcr.io/sre-cedille/canoe-beton:$TAG .
-  Build-Push-Image-Docker:
-    description: Build and push image to Google Container Registry
-    machine: true
-    steps:
-      - checkout
-      - gcr/gcr-auth
-      - gcr/build-image:
-          image: canoe-beton
-          tag: "latest"
-      - gcr/push-image:
-          image: canoe-beton
-          tag: "latest"
-    
+          cat "{$DOCKER_PASS}" | docker login -u _json_key --password-stdin https://us.gcr.io
+          docker push us.gcr.io/sre-cedille/canoe-beton:$TAG    
   deploy:
     description: Deploy application to Google Kubernetes Engine
     machine: true
     steps:
       # Install `gcloud` and `kubectl` if not already installed.
       - gcp-gke/install
-      # Update a deployment's Docker image.
       - rollout-image:
           deployment: canoe
           image: us.gcr.io/sre-cedille/canoe-beton:latest
@@ -73,8 +62,10 @@ jobs:
           namespace: canoe
 
       
-
 workflows:
   build_update_deploy:
     jobs:
-      - deploy
+      - build
+      - deploy:
+          requires:
+            - build
