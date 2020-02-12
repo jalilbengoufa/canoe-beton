@@ -27,8 +27,6 @@ commands:
         type: string
     steps:
       # Install  `kubectl` if not already installed and set the config 
-      - gcp-gke/install
-      - gcp-gke/init
       - kube-orb/install-kubectl
       - kube-orb/install-kubeconfig:
           kubeconfig: KUBECONFIG_DATA
@@ -42,6 +40,8 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
+      - gcp-gke/install
+      - gcp-gke/init
       - run: |
           TAG=latest
           gcloud auth configure-docker
