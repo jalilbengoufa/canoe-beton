@@ -40,7 +40,7 @@ jobs:
       - image: us.gcr.io/sre-cedille/canoe-beton:latest
         auth:
           username: _json_key  # can specify string literal values
-          password: "{$DOCKER_PASS}"  # or project environment variable reference
+          password: $DOCKER_PASS  # or project environment variable reference
     steps:
       - checkout
 
