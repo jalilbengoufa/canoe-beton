@@ -3,3 +3,14 @@ node_js:
   - "4.1.0"
 before_script:
   - npm install -g mocha
+
+services:
+  - docker
+
+before_install:
+  - docker build -t us.gcr.io/sre-cedille/canoe-beton:latest .
+  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - docker push us.gcr.io/sre-cedille/canoe-beton:$TAG
+
+script:
+  - bundle exec rake test
