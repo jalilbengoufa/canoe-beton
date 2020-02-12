@@ -68,7 +68,7 @@ jobs:
       - rollout-image:
           deployment: canoe
           image: us.gcr.io/sre-cedille/canoe-beton:latest
-          container: canoe-beton
+          container: canoe
           cluster: sre-cedille
           namespace: canoe
 
