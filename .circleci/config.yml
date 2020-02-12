@@ -38,9 +38,9 @@ jobs:
   build:
     docker:
       - image: circleci/node:7.10
-          auth:
-            username: _json_key  # can specify string literal values
-            password: $DOCKER_PASS  # or project environment variable reference
+        auth:
+          username: _json_key  # can specify string literal values
+          password: $DOCKER_PASS  # or project environment variable reference
     steps:
       - checkout
 
