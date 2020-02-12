@@ -37,7 +37,10 @@ commands:
 jobs:
   build:
     docker:
-      - image: circleci/node:7.10
+      - image: us.gcr.io/sre-cedille/canoe-beton:latest
+        auth:
+          username: _json_key  # can specify string literal values
+          password: "{$DOCKER_PASS}"  # or project environment variable reference
     steps:
       - checkout
 
@@ -46,7 +49,6 @@ jobs:
       - run: |
           TAG=latest
           docker build -t us.gcr.io/sre-cedille/canoe-beton:$TAG .
-          cat "{$DOCKER_PASS}" | docker login -u _json_key --password-stdin https://us.gcr.io
           docker push us.gcr.io/sre-cedille/canoe-beton:$TAG    
   deploy:
     description: Deploy application to Google Kubernetes Engine
