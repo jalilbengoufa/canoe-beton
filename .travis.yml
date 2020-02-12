@@ -24,11 +24,11 @@ before_install:
 # This line is critical. We setup the SDK to take precedence in our
 # environment over the old SDK that is already on the machine.
 - ls -a
-- cd jalilbengoufa/canoe-beton && openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_iv -in configt.enc -out config -d
+- cd /home/travis/build/jalilbengoufa/canoe-beton && openssl aes-256-cbc -K $encrypted_0a6446eb3ae3_key -iv $encrypted_0a6446eb3ae3_iv -in configt.enc -out config -d
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components update kubectl
 - gcloud version
-- export KUBECONFIG=.jalilbengoufa/canoe-beton/config
+- export KUBECONFIG=./home/travis/build/jalilbengoufa/canoe-beton/config
 - kubectl config view
 - kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton:latest 
 # Insert your own install + script below.
