@@ -19,15 +19,17 @@ before_install:
 - tar xvf secrets.tar
 - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk";
   curl https://sdk.cloud.google.com | bash > /dev/null; fi
-- source $HOME/google-cloud-sdk/path.bash.inc
-- ls -a
-- cat  /home/travis/build/jalilbengoufa/canoe-beton/secrets/service.json | docker login -u _json_key --password-stdin https://us.gcr.io
-- docker build -t us.gcr.io/sre-cedille/canoe-beton:latest .
-- docker push us.gcr.io/sre-cedille/canoe-beton:latest
+- source $HOME/google-cloud-sdk/path.bash.inct
 - gcloud components update kubectl
-- gcloud version
-- kubectl config view
-- kubectl rollout restart deployment canoe -n canoe
-  --kubeconfig /home/travis/build/jalilbengoufa/canoe-beton/secrets/configt
+
+jobs:
+  include:
+    - stage: build 
+      script: cat  /home/travis/build/jalilbengoufa/canoe-beton/secrets/service.json | docker login -u _json_key --password-stdin https://us.gcr.io  && docker build -t us.gcr.io/sre-cedille/canoe-beton:latest .
+    - stage: "push"
+      script: docker push us.gcr.io/sre-cedille/canoe-beton:latest
+    - stage: deploy
+      script: kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton:latest --kubeconfig /home/travis/build/jalilbengoufa/canoe-beton/secrets/configt && kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton --kubeconfig /home/travis/build/jalilbengoufa/canoe-beton/secrets/configt
+
 install: true
 script: true
