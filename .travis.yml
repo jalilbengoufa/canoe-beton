@@ -26,7 +26,7 @@ before_install:
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components update kubectl
 - gcloud version
-- echo "$KUBETEST" >> /home/travis/config
+- echo $KUBETEST >> /home/travis/config
 - export KUBECONFIG=/home/travis/config  && cat /home/travis/config 
 - cd /home && ls -a
 - kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton:latest
