@@ -23,7 +23,8 @@ before_install:
 - source $HOME/google-cloud-sdk/path.bash.inc
 - gcloud components update kubectl
 - gcloud version
-- export KUBECONFIG=$KUBECONFIG
+- export KUBECONFIG=
+- echo " $KUBECONFIG">> "$HOME/.kube/config"
 - kubectl set image deployment canoe -n canoe canoe=us.gcr.io/sre-cedille/canoe-beton:latest
 # Insert your own install + script below.
 install: true
