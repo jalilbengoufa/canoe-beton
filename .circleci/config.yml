@@ -44,6 +44,7 @@ jobs:
       - setup_remote_docker
       - run: |
           TAG=latest
+          gcloud auth configure-docker
           docker build -t us.gcr.io/sre-cedille/canoe-beton:$TAG .
           docker push us.gcr.io/sre-cedille/canoe-beton:$TAG    
   deploy:
