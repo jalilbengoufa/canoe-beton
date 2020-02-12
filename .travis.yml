@@ -23,9 +23,13 @@ before_install:
 - if [ ! -d "$HOME/google-cloud-sdk/bin" ]; then rm -rf "$HOME/google-cloud-sdk"; curl https://sdk.cloud.google.com | bash > /dev/null; fi
 # This line is critical. We setup the SDK to take precedence in our
 # environment over the old SDK that is already on the machine.
-- ls -a
-- cd /home/travis/build/jalilbengoufa/canoe-beton && openssl aes-256-cbc -K $encrypted_7230627466ee_key -iv $encrypted_7230627466ee_iv -in configt.enc -out configt -d
 - source $HOME/google-cloud-sdk/path.bash.inc
+- ls -a 
+- cd /home/travis/build/jalilbengoufa/canoe-beton && openssl aes-256-cbc -K $encrypted_7230627466ee_key -iv $encrypted_7230627466ee_iv -in configt.enc -out configt -d
+- cd /home/travis/build/jalilbengoufa/canoe-beton && openssl aes-256-cbc -K $encrypted_7230627466ee_key -iv $encrypted_7230627466ee_iv -in service.json.enc -out service.json -d
+- cat service.json | docker login -u _json_key --password-stdin https://us.gcr.io
+- docker build -t us.gcr.io/sre-cedille/canoe-beton:latest .
+- docker push us.gcr.io/sre-cedille/canoe-beton:latest  
 - gcloud components update kubectl
 - gcloud version
 - kubectl config view

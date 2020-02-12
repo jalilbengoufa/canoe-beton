@@ -7,3 +7,4 @@ test/bower_components
 .idea
 config/config.prod.js
 configt
+service.json
